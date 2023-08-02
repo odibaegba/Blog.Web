@@ -1,6 +1,8 @@
-﻿namespace Blog.Web.Models.Domain
+﻿using Blog.Web.Models.Domain;
+
+namespace Blog.Web.Models.ViewModels
 {
-	public class BlogPost
+	public class BlogDetailsViewModel
 	{
 		public Guid Id { get; set; }
 		public string Heading { get; set; } = string.Empty;
@@ -12,12 +14,10 @@
 		public DateTime PublishedDate { get; set; }
 		public string Author { get; set; } = string.Empty;
 		public bool Visible { get; set; }
-
-		//Navigation Properties
 		public ICollection<Tag> Tags { get; set; }
-
-		public ICollection<BlogPostLike> Likes { get; set; }
-		public ICollection<BlogPostComment> Comments { get; set; }
-
+		public int TotalLikes { get; set; }
+		public bool Liked { get; set; }
+		public string CommentDescription { get; set; } = string.Empty;
+		public IEnumerable<BlogComment> Comments { get; set; }
 	}
 }

@@ -45,6 +45,25 @@ namespace Blog.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BlogPostLikes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BlogPostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BlogPostLikes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BlogPostLikes_BlogPosts_BlogPostId",
+                        column: x => x.BlogPostId,
+                        principalTable: "BlogPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BlogPostTag",
                 columns: table => new
                 {
@@ -69,6 +88,11 @@ namespace Blog.Web.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BlogPostLikes_BlogPostId",
+                table: "BlogPostLikes",
+                column: "BlogPostId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BlogPostTag_TagsId",
                 table: "BlogPostTag",
                 column: "TagsId");
@@ -77,6 +101,9 @@ namespace Blog.Web.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BlogPostLikes");
+
             migrationBuilder.DropTable(
                 name: "BlogPostTag");
 
